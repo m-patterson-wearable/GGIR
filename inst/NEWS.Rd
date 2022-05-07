@@ -1,6 +1,35 @@
 \name{NEWS}
 \title{News for Package \pkg{GGIR}}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+\section{Changes in version 2.6-5 (GitHub-only-release date:??-??-2022)}{
+\itemize{
+    \item Vignette for read.myacc.csv function included.
+    \item Parameter objects documentation moved to g.shell.GGIR.
+    \item Part4: Advanced sleeplog handling further improved as it now also handles dates in sleeplog far beyond recording dates.
+    \item Part2 report: Number of days to plot now auto scales to length of measurement.
+    \item Part2 report: Fixed bug introduced in 2.6-3 making it impossible to generate a report for more than 1 file and fix bug introduced in 2.6-4 messing up the merging of files.
+    \item Part1: Now auto-converts files with GT3X extension to gt3x as this is required for read.gt3x.
+    \item Part4: Removed unnecessary warning while loading sleeplog.
+    }
+}
+\section{Changes in version 2.6-4 (GitHub-only-release date:13-04-2022)}{
+\itemize{
+    \item Part4: Bug fixed in handling of advanced sleeplog data when start of acc recording does not match start of sleeplog
+   \item Deprecated functionality for reading GENEActiv csv files through g.readaccfile
+    }
+}
+\section{Changes in version 2.6-3 (GitHub-only-release date:08-04-2022)}{
+\itemize{
+    \item Part2: Non-user facing arguments and object named BodyLocation replaced by sensor.location        to be consistent with the term used in part 3.
+    \item Minor documentation updates to cover brondcounts and to reflect that
+      bout.metric is no longer 4 by default
+    \item Minor change to parallel processing so that GGIR does not create a cluster larger than the number of
+      files to process. Fixes #535
+    \item Part 4: Fix bug #531 re. sleeplog being ignored if first night is missing
+    \item Part 4: Now relies more on ID extraction in part 1-3 and only attempts to extract ID from filename if that fails. Previously it extracted the ID twice.
+    \item General: Speeded-up implementation of rounding decimal places as introduced in release 2.6-1
+    }
+}
 \section{Changes in version 2.6-2 (GitHub-only-release date:06-03-2022)}{
 \itemize{
     \item Part 1: Can now handle .gt3x produced by CentrePoint but for now user needs to change upercase file extension to lowercase

@@ -966,7 +966,7 @@ g.part5 = function(datadir = c(), metadatadir = c(), f0=c(), f1=c(),
     Ncores = cores[1]
     if (Ncores > 3) {
       if (length(params_general[["maxNcores"]]) == 0) params_general[["maxNcores"]] = Ncores
-      Ncores2use = min(c(Ncores - 1, params_general[["maxNcores"]]))
+      Ncores2use = min(c(Ncores - 1, params_general[["maxNcores"]], (f1 - f0) + 1))
       cl <- parallel::makeCluster(Ncores2use) #not to overload your computer
       doParallel::registerDoParallel(cl)
     } else {
@@ -988,7 +988,8 @@ g.part5 = function(datadir = c(), metadatadir = c(), f0=c(), f1=c(),
                            "g.part5.definedays", "g.part5.fixmissingnight",
                            "g.part5.onsetwaketiming", "g.part5.wakesleepwindows",
                            "g.part5.savetimeseries", "g.fragmentation", "g.intensitygradient",
-                           "g.part5.handle_lux_extremes", "g.part5.lux_persegment", "g.sibreport")
+                           "g.part5.handle_lux_extremes", "g.part5.lux_persegment", "g.sibreport",
+                           "extract_params", "load_params", "check_params")
       errhand = 'stop'
     }
     fe_dopar = foreach::`%dopar%`

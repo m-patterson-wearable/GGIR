@@ -1,6 +1,6 @@
 g.shell.GGIR = function(mode = 1:5, datadir = c(), outputdir = c(),
                         studyname = c(), f0 = 1, f1 = 0,
-                        do.report = c(2), configfile = c(),
+                        do.report = c(2, 4, 5), configfile = c(),
                         myfun = c(), ...) {
   #get input variables
   input = list(...)
@@ -35,7 +35,7 @@ g.shell.GGIR = function(mode = 1:5, datadir = c(), outputdir = c(),
   if (derivef0f1 == TRUE) { # What file to start with?
     f0 = 1
     if (filelist == FALSE) {  # What file to end with?
-      f1 <- length(dir(datadir, recursive = TRUE, pattern = "[.](csv|bin|Rda|wa|cw|gt3)")) # modified by JH
+      f1 <- length(dir(datadir, recursive = TRUE, ignore.case = TRUE, pattern = "[.](csv|bin|Rda|wa|cw|gt3)")) # modified by JH
     } else {
       f1 = length(datadir) #modified
     }
@@ -130,9 +130,9 @@ g.shell.GGIR = function(mode = 1:5, datadir = c(), outputdir = c(),
   # Print GGIR header to console
   GGIRversion = ""
   SI = sessionInfo()
-  try(expr = {GGIRversion = SI$loadedOnly$GGIR$Version},silent=TRUE)
+  try(expr = {GGIRversion = SI$loadedOnly$GGIR$Version}, silent = TRUE)
   if (length(GGIRversion) == 0) {
-    try(expr = {GGIRversion = SI$otherPkgs$GGIR$Version},silent=TRUE)
+    try(expr = {GGIRversion = SI$otherPkgs$GGIR$Version}, silent = TRUE)
   }
   if (length(GGIRversion) == 0) GGIRversion = "could not extract version"
   GGIRversion = paste0(" ",GGIRversion)

@@ -72,6 +72,10 @@ g.calibrate = function(datafile, params_rawdata = c(),
   if (mon == 6) mon = 3
   dformat = INFI$dformc
   sf = INFI$sf
+  # if GENEActiv csv, deprecated function
+  if (mon == 2 & dformat == 2 & length(params_rawdata[["rmc.firstrow.acc"]]) == 0) {
+    stop("The GENEActiv csv reading functionality is deprecated in GGIR from the version 2.6-4 onwards. Please, use either the GENEActiv bin files or try to read the csv files with GGIR::read.myacc.csv")
+  }
   if (length(sf) == 0) { # if sf is not available then try to retrieve sf from rmc.sf
     if (length(params_rawdata[["rmc.sf"]]) == 0) {
       stop("Could not identify sample frequency")
@@ -208,7 +212,7 @@ g.calibrate = function(datafile, params_rawdata = c(),
             use.temp = TRUE
           } else if (mon == 0 & dformat == 5 & length(params_rawdata[["rmc.col.temp"]]) > 0) { # ad-hoc format csv with temperature
             Gx = as.numeric(data[,2]); Gy = as.numeric(data[,3]); Gz = as.numeric(data[,4])
-            temperature = as.numeric(data[,5])
+            temperature = as.numeric(data[, params_rawdata[["rmc.col.temp"]]])
             use.temp = TRUE
           } else if (mon == 0 & dformat == 5 & length(params_rawdata[["rmc.col.temp"]]) == 0) { # ad-hoc format csv without temperature
             Gx = as.numeric(data[,2]); Gy = as.numeric(data[,3]); Gz = as.numeric(data[,4])
@@ -477,7 +481,7 @@ g.calibrate = function(datafile, params_rawdata = c(),
     cat("\n")
     cat(paste0("\nStatus: ",QCmessage))
     cat(paste0("\nCalibration error (g) before: ", cal.error.start))
-    cat(paste0("\nCallibration error (g) after: ", cal.error.end))
+    cat(paste0("\nCalibration error (g) after: ", cal.error.end))
     cat(paste0("\nOffset correction ",c("x","y","z"),": ", offset))
     cat(paste0("\nScale correction ",c("x","y","z"),": ", scale))
     cat(paste0("\nNumber of hours used: ",nhoursused))

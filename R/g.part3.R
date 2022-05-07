@@ -124,7 +124,7 @@ g.part3 = function(metadatadir = c(), f0, f1, myfun = c(),
     Ncores = cores[1]
     if (Ncores > 3) {
       if (length(params_general[["maxNcores"]]) == 0) params_general[["maxNcores"]] = Ncores
-      Ncores2use = min(c(Ncores - 1, params_general[["maxNcores"]]))
+      Ncores2use = min(c(Ncores - 1, params_general[["maxNcores"]], (f1 - f0) + 1))
       cl <- parallel::makeCluster(Ncores2use) #not to overload your computer
       doParallel::registerDoParallel(cl)
     } else {
@@ -142,7 +142,8 @@ g.part3 = function(metadatadir = c(), f0, f1, myfun = c(),
     } else {
       # pass on functions
       functions2passon = c("g.sib.det", "g.detecmidnight", "iso8601chartime2POSIX", 
-                           "g.sib.plot", "g.sib.sum", "HASPT", "HASIB", "CalcSleepRegularityIndex")
+                           "g.sib.plot", "g.sib.sum", "HASPT", "HASIB", "CalcSleepRegularityIndex",
+                           "extract_params", "load_params", "check_params")
       errhand = 'stop'
     }
     fe_dopar = foreach::`%dopar%`
